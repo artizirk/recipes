@@ -1,4 +1,4 @@
 *.squashfs
-*_report.txt
+*_report.txt*
 
 minimalbuild/minimalbuild

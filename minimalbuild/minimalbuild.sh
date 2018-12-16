@@ -2,6 +2,7 @@
 
 # Requirements:
 # - arch-install-scripts
+# - diffutils
 # - fakeroot
 # - squashfs-tools
 # - tree
@@ -10,6 +11,13 @@ TARGET=minimalbuild
 
 rm -rf minimalbuild && mkdir -p minimalbuild
 rm -rf minimalbuild.squashfs
+
+if [ -f ./minimalbuild_report.txt ]; then
+    if [ -f ./minimalbuild_report.txt.old ]; then
+        rm minimalbuild_report.txt.old
+    fi
+    mv minimalbuild_report.txt minimalbuild_report.txt.old
+fi
 
 # ffs pacstrap
 sudo pacstrap -C ./minimalbuild_pacman.conf -M -G "${TARGET}" base-minimal
@@ -29,3 +37,9 @@ echo ">>> squashfs-ed size" >> minimalbuild_report.txt
 fakeroot mksquashfs "${TARGET}"/. minimalbuild.squashfs | tee -a minimalbuild_report.txt
 echo >> minimalbuild_report.txt
 du -sh minimalbuild.squashfs | tee -a minimalbuild_report.txt
+
+if [ -f minimalbuild_report.txt.old ]; then
+    echo ""
+    echo ">>> Comparision with previous build"
+    diff --color --unified minimalbuild_report.txt.old minimalbuild_report.txt
+fi
