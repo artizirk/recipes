@@ -35,7 +35,7 @@ tree -s "${TARGET}" | tee -a minimalbuild_report.txt
 
 echo >> minimalbuild_report.txt
 echo ">>> squashfs-ed size" >> minimalbuild_report.txt
-fakeroot mksquashfs "${TARGET}"/. minimalbuild.squashfs | tee -a minimalbuild_report.txt
+fakeroot mksquashfs "${TARGET}"/. minimalbuild.squashfs -comp zstd | tee -a minimalbuild_report.txt
 echo >> minimalbuild_report.txt
 du -sh minimalbuild.squashfs | tee -a minimalbuild_report.txt
 
