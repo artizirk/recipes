@@ -42,5 +42,5 @@ du -sh minimalbuild.squashfs | tee -a minimalbuild_report.txt
 if [ -f minimalbuild_report.txt.old ]; then
     echo ""
     echo ">>> Comparision with previous build"
-    diff --color --unified minimalbuild_report.txt.old minimalbuild_report.txt
+    diff --color --unified minimalbuild_report.txt.old minimalbuild_report.txt || true
 fi
