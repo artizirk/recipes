@@ -26,6 +26,7 @@ find "${TARGET}" -uid 0 -gid 0 -exec sudo chown $(id -u):$(id -g) {} ';'
 for p in cache lib log; do
     rm -rf "${TARGET}/var/${p}"
 done
+rm -rf "${TARGET}/usr/share/licenses"
 
 echo ">>> Raw installation size" >> minimalbuild_report.txt
 du -sh "${TARGET}"  | tee -a minimalbuild_report.txt
